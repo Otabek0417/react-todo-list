@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./Form.css";
 
-function Form({ setData }) {
+function Form({ getData, setShow }) {
   const [todo, setTodo] = useState("");
-  // console.log(todo);
+
+  // Submit function
   const handleSubmit = (e) => {
     e.preventDefault();
     let item = {
@@ -11,11 +12,13 @@ function Form({ setData }) {
       text: todo,
       selected: false,
     };
-    setData((prev) => {
+    getData((prev) => {
       return [...prev, item];
     });
     setTodo("");
   };
+
+  //Form
   return (
     <form className="form" onSubmit={handleSubmit}>
       <input
@@ -26,11 +29,11 @@ function Form({ setData }) {
         autoFocus
         autoComplete="off"
         onChange={(e) => {
-          setTodo(e.target.value.trim());
+          setTodo(e.target.value);
         }}
         value={todo}
       />
-      <button className="btn" type="submit">
+      <button onClick={() => {}} className="btn" type="submit">
         Add
       </button>
     </form>

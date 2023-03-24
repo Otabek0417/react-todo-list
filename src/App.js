@@ -1,11 +1,11 @@
-import Form from "./components/Form";
+import Modal from "./components/Modal";
 import TodoList from "./components/TodoList";
+import Form from "./components/Form";
 import { useState } from "react";
 import "./App.css";
 
 function App() {
   const [data, setData] = useState([]);
-  console.log(data);
 
   const updateData = (id) => {
     const newData = data.map((item) => {
@@ -24,19 +24,42 @@ function App() {
     setData(newData);
   };
 
+  // edit function
+
+  const editItem = (id, editText) => {
+    const newData = data.map((item) => {
+      if (item.id === id) {
+        return { ...item, text: editText };
+      }
+      return item;
+    });
+    setData(newData);
+  };
+
   return (
     <div className="App">
       <div className="container">
         <h1 className="title">Daily To Do List</h1>
-        <Form setData={setData} />
-        <TodoList data={data} updateData={updateData} deleteItem={deleteItem} />
+
+        <Form getData={setData} />
+
+        <TodoList
+          data={data}
+          updateData={updateData}
+          deleteItem={deleteItem}
+          editItem={editItem}
+        />
         <hr />
         <footer>
           <p>Items: {data.length}</p>
 
-          <button onClick={() => {
-            setData([])
-          }}>Clear all</button>
+          <button
+            onClick={() => {
+              setData([]);
+            }}
+          >
+            Clear all
+          </button>
         </footer>
       </div>
     </div>
